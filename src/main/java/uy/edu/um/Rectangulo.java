@@ -1,40 +1,50 @@
 package uy.edu.um;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 
-public class Rectangulo {
+public class Rectangulo extends Figura {
     private double largo;
     private double ancho;
-    private String nombre;
-    
+
     public Rectangulo(double largo, double ancho) {
+        super("Rectángulo");
+        validarDimensiones(largo, ancho);
         this.largo = largo;
         this.ancho = ancho;
-        this.nombre = "Rectángulo";
     }
-    
-    public double getPerimetro() {
-        return 2 * (largo + ancho);
+
+    public Rectangulo(double largo, double ancho, String nombre) {
+        super(nombre);
+        validarDimensiones(largo, ancho);
+        this.largo = largo;
+        this.ancho = ancho;
     }
-    
+
+    private void validarDimensiones(double largo, double ancho) {
+        if (largo <= 0 || ancho <= 0) {
+            throw new IllegalArgumentException("El largo y ancho del rectángulo deben ser mayores a 0");
+        }
+    }
+
+    @Override
     public double getArea() {
         return largo * ancho;
     }
-    
-    public void printPerimetro(String unidad){
-        System.out.println("El perímetro del rectángulo es: " + getPerimetro() + " " + unidad);
+
+    @Override
+    public double getPerimetro() {
+        return 2 * (largo + ancho);
     }
-    
-    public void printArea(String unidad){
-        System.out.println("El área del rectángulo es: " + getArea() + " " + unidad);
+
+    @Override
+    public String getTipo() {
+        return "rectángulo";
     }
-    
+
     @Override
     public String toString() {
         return super.toString();

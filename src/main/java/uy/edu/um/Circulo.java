@@ -1,36 +1,45 @@
 package uy.edu.um;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 
-public class Circulo {
+public class Circulo extends Figura {
     private double radio;
-    private String nombre;
 
     public Circulo(double radio) {
+        super("Círculo");
+        validarRadio(radio);
         this.radio = radio;
-        this.nombre = "Círculo";
     }
 
-    public double getPerimetro() {
-        return 2 * Math.PI * radio;
+    public Circulo(double radio, String nombre) {
+        super(nombre);
+        validarRadio(radio);
+        this.radio = radio;
     }
 
+    private void validarRadio(double radio) {
+        if (radio <= 0) {
+            throw new IllegalArgumentException("El radio del círculo debe ser mayor a 0");
+        }
+    }
+
+    @Override
     public double getArea() {
         return Math.PI * Math.pow(radio, 2);
     }
 
-    public void printPerimetro(String unidad){
-        System.out.println("El perímetro del círculo es: " + getPerimetro() + " " + unidad);
+    @Override
+    public double getPerimetro() {
+        return 2 * Math.PI * radio;
     }
 
-    public void printArea(String unidad){
-        System.out.println("El área del círculo es: " + getArea() + " " + unidad);
+    @Override
+    public String getTipo() {
+        return "círculo";
     }
 
     @Override

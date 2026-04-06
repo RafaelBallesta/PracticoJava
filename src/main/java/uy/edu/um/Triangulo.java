@@ -1,38 +1,48 @@
 package uy.edu.um;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 
-public class Triangulo {
+public class Triangulo extends Figura {
     private double base;
     private double altura;
-    private String nombre;
 
     public Triangulo(double base, double altura) {
+        super("Triángulo");
+        validarDimensiones(base, altura);
         this.base = base;
         this.altura = altura;
-        this.nombre = "Triángulo";
     }
 
-    public double getPerimetro() {
-        return 3 * base;
+    public Triangulo(double base, double altura, String nombre) {
+        super(nombre);
+        validarDimensiones(base, altura);
+        this.base = base;
+        this.altura = altura;
     }
 
+    private void validarDimensiones(double base, double altura) {
+        if (base <= 0 || altura <= 0) {
+            throw new IllegalArgumentException("La base y altura del triángulo deben ser mayores a 0");
+        }
+    }
+
+    @Override
     public double getArea() {
         return (base * altura) / 2;
     }
 
-    public void printPerimetro(String unidad){
-        System.out.println("El perímetro del triángulo es: " + getPerimetro() + " " + unidad);
+    @Override
+    public double getPerimetro() {
+        return 3 * base;
     }
 
-    public void printArea(String unidad){
-        System.out.println("El área del triángulo es: " + getArea() + " " + unidad);
+    @Override
+    public String getTipo() {
+        return "triángulo";
     }
 
     @Override
